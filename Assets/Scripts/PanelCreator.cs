@@ -38,7 +38,7 @@ public class PanelCreator : MonoBehaviour
 
         Vector2 anchorpoint = new Vector2(0.5f, 0.5f);
 
-        gridLayoutGroup = panelC.AddComponent<GridLayoutGroup>();
+        //gridLayoutGroup = panelC.AddComponent<GridLayoutGroup>();
 
         // Set the panel's parent to be the Canvas
         RectTransform panelRect = panelC.GetComponent<RectTransform>();
@@ -56,11 +56,11 @@ public class PanelCreator : MonoBehaviour
 
     void configuregridlayoutgroup() {
 
-        gridLayoutGroup.padding = new RectOffset(80, 0, 80, 0);
+        gridLayoutGroup.padding = new RectOffset(35, 0, 80, 0);
 
         // Set cell size and spacing
-        gridLayoutGroup.cellSize = new Vector2(900, 900);
-        gridLayoutGroup.spacing = Vector2.zero;
+        gridLayoutGroup.cellSize = new Vector2(900f, 900f);
+        gridLayoutGroup.spacing = new Vector2(45f,0f);
 
         // Set alignment and layout constraints
         gridLayoutGroup.startCorner = GridLayoutGroup.Corner.UpperLeft;

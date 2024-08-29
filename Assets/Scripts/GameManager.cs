@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    int panelcount = 2;
     // Start is called before the first frame update
     void Start()
     {
-        PanelCreator.Instance.panelCreator();
+        while (panelcount > 0) {
+            PanelCreator.Instance.panelCreator();
+            panelcount--;
+        }
     }
 
     // Update is called once per frame
