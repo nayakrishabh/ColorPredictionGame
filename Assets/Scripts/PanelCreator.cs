@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,7 +30,7 @@ public class PanelCreator : MonoBehaviour
         
     }
 
-   public void panelCreator() {
+   public GameObject panelCreator() {
         // Create a new GameObject with a RectTransform and Image component
         panelC = new GameObject("Selection Panel", typeof(RectTransform), typeof(Image));
 
@@ -51,6 +52,7 @@ public class PanelCreator : MonoBehaviour
         panelRect.pivot = anchorpoint;
         panelRect.anchoredPosition = Vector2.zero;
 
+        return panelC;
         //configuregridlayoutgroup();
     }
 

@@ -393,7 +393,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -444,6 +444,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ebee54927e6c2742b6f0a81298f2290, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  countDownText: {fileID: 357717536316484130, guid: 57329eb7b89295b4bb55618a08e1254d, type: 3}
+  basePanel: {fileID: 8982357276608716350, guid: 8ba167efd12723542b20e5255985959d, type: 3}
+  secondPanel: {fileID: 2055598170041198602, guid: 215a10d023798f6438120fa1d20f6993, type: 3}
 --- !u!1 &842207872
 GameObject:
   m_ObjectHideFlags: 0
