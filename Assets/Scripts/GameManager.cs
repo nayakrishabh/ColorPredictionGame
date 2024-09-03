@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -72,29 +74,27 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-        nobuttonList = uiConnector.GetButtonList(1);
-        colorbuttonlist = uiConnector.GetButtonList(2);
+        
+        //nobuttonList = uiConnector.GetButtonList(1);
+        //colorbuttonlist = uiConnector.GetButtonList(2);
         bigsmallbuttonlist.Add(uiConnector2.bigButton);
         bigsmallbuttonlist.Add(uiConnector2.smallButton);
-
         Debug.Log(nobuttonList.Count);
-        for (int i = 0; i < nobuttonList.Count; i++) {
-            int index = i;
-            nobuttonList[index].onClick.AddListener(() => {
-                Debug.Log("Button Clicked: " + nobuttonList[index].name);
-                betPanel(nobuttonList[index].name);
-            });
+        getButtonList();
+
+        foreach (Button button in nobuttonList) {
+            Debug.Log(button.name);
+            button.onClick.AddListener(betPanel);
         }
 
-        for (int i = 0; i < colorbuttonlist.Count; i++) {
-            int index = i;
-            colorbuttonlist[index].onClick.AddListener(() => betPanel(colorbuttonlist[index].name));
+        foreach (Button button in colorbuttonlist) {
+            Debug.Log(button.name);
+            button.onClick.AddListener(betPanel);
         }
 
-        for (int i = 0; i < bigsmallbuttonlist.Count; i++) {
-            int index = i;
-            bigsmallbuttonlist[index].onClick.AddListener(() => betPanel(bigsmallbuttonlist[index].name));
+        foreach (Button button in bigsmallbuttonlist) {
+            Debug.Log(button.name);
+           // button.onClick.AddListener(() => betPanel(button.name));
         }
 
         cdpaneltranform = GameObject.FindWithTag("Timer").GetComponent<Transform>();
@@ -105,6 +105,11 @@ public class GameManager : MonoBehaviour
         StartCoroutine(GameLoop());
     }
 
+    public void getButtonList() {
+        foreach (GameObject obj in uiConnector.GetButtonList(1)) {
+            nobuttonList.Add(obj.GetComponent<Button>());
+        }
+    }
     private IEnumerator GameLoop() {
         while (true) {
             ColorPredictionGame.instance.StartNewRound();
@@ -129,7 +134,7 @@ public class GameManager : MonoBehaviour
         
     }
 
-    void betPanel(string betType) {
+    public void betPanel() {
         Debug.Log("fshtsrhresh");
         bettingPanel.SetActive(true);    
     }
