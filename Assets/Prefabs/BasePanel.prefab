@@ -921,7 +921,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8896478787996448035}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6431593367453059825}
+        m_TargetAssemblyTypeName: OnButtonClick, Assembly-CSharp
+        m_MethodName: betPanel
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: VIOLET
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1429109532215387853
 GameObject:
   m_ObjectHideFlags: 0
@@ -1165,7 +1177,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2911037250829761122}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6431593367453059825}
+        m_TargetAssemblyTypeName: OnButtonClick, Assembly-CSharp
+        m_MethodName: betPanel
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: RED
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2736586235815566394
 GameObject:
   m_ObjectHideFlags: 0
@@ -2245,6 +2269,7 @@ GameObject:
   - component: {fileID: 3223890434909396027}
   - component: {fileID: 3177743879220443679}
   - component: {fileID: 3087128008114992874}
+  - component: {fileID: 6431593367453059825}
   m_Layer: 0
   m_Name: ColorPanel
   m_TagString: Untagged
@@ -2338,6 +2363,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 1
   m_ChildScaleHeight: 1
   m_ReverseArrangement: 0
+--- !u!114 &6431593367453059825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4966689831170243892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fb40f4affac5ef419d2d29f97d880be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5380239424310359609
 GameObject:
   m_ObjectHideFlags: 0
@@ -3470,7 +3507,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8415954869883725996}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6431593367453059825}
+        m_TargetAssemblyTypeName: OnButtonClick, Assembly-CSharp
+        m_MethodName: betPanel
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: GREEN
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8520836518611672463
 GameObject:
   m_ObjectHideFlags: 0

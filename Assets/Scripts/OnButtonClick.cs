@@ -7,7 +7,5 @@ public class OnButtonClick : MonoBehaviour
     public void betPanel(string betType) {
 
         BettingPanel.instance.bettingpanelactive(betType);
-       
-        
     }
 }

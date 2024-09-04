@@ -332,7 +332,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1288122592463511255}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8326782316934902173}
+        m_TargetAssemblyTypeName: OnButtonClick, Assembly-CSharp
+        m_MethodName: betPanel
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: SMALL
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2055598170041198602
 GameObject:
   m_ObjectHideFlags: 0
@@ -437,6 +449,7 @@ GameObject:
   - component: {fileID: 4254744576716174206}
   - component: {fileID: 114097894416576074}
   - component: {fileID: 3995416606474988285}
+  - component: {fileID: 8326782316934902173}
   m_Layer: 0
   m_Name: Big-SmallPanel
   m_TagString: Untagged
@@ -529,6 +542,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 1
   m_ChildScaleHeight: 1
   m_ReverseArrangement: 0
+--- !u!114 &8326782316934902173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2616700396167821632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fb40f4affac5ef419d2d29f97d880be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4079058558459572213
 GameObject:
   m_ObjectHideFlags: 0
@@ -649,7 +674,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7441449089286449510}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8326782316934902173}
+        m_TargetAssemblyTypeName: OnButtonClick, Assembly-CSharp
+        m_MethodName: betPanel
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: BIG
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7431798160107522059
 GameObject:
   m_ObjectHideFlags: 0

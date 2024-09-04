@@ -126,5 +126,7 @@ public class GameManager : MonoBehaviour
     public float getBalance() {
         return balance;
     }
-    
+    public void setBalance(float upbal) {
+        balance += upbal;
+    }
 }

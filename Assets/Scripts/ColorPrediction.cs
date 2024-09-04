@@ -75,6 +75,7 @@ public class ColorPredictionGame : MonoBehaviour {
             if (isWinningBet) {
                 Debug.Log($"Winning bet: {bet.Key} with amount: {bet.Value}");
                 // Payout logic can be added here, e.g., double the bet amount
+                GameManager.instance.setBalance(bet.Value);
             }
             else {
                 Debug.Log($"Losing bet: {bet.Key} with amount: {bet.Value}");
