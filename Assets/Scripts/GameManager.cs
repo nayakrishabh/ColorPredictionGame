@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     private GameObject secondPanel;
 
     [SerializeField]
-    private GameObject bettingPanel;
+    private BettingPanel bettingPanel;
 
     [SerializeField]
     private UiConnector uiConnector;
@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     private List<Button> colorbuttonlist;
     private List<Button> bigsmallbuttonlist;
 
+    
     private Transform cdpaneltranform;
     private GameObject timerPanel;
     private TextMeshProUGUI countdown;
@@ -62,9 +63,6 @@ public class GameManager : MonoBehaviour
             panelcount--;
         }
 
-        Instantiate(bettingPanel, GetComponent<RectTransform>());
-        bettingPanel.SetActive(false);
-
         uiConnector = basePanel.GetComponent<UiConnector>();
         uiConnector2 = secondPanel.GetComponent<UIConnector2>();
         nobuttonList = new List<Button>();
@@ -74,29 +72,13 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
         //nobuttonList = uiConnector.GetButtonList(1);
         //colorbuttonlist = uiConnector.GetButtonList(2);
+        if (BettingPanel.instance == null && bettingPanel != null) {
+            BettingPanel.instance = bettingPanel;
+        }
         bigsmallbuttonlist.Add(uiConnector2.bigButton);
         bigsmallbuttonlist.Add(uiConnector2.smallButton);
-        Debug.Log(nobuttonList.Count);
-        getButtonList();
-
-        foreach (Button button in nobuttonList) {
-            Debug.Log(button.name);
-            button.onClick.AddListener(betPanel);
-        }
-
-        foreach (Button button in colorbuttonlist) {
-            Debug.Log(button.name);
-            button.onClick.AddListener(betPanel);
-        }
-
-        foreach (Button button in bigsmallbuttonlist) {
-            Debug.Log(button.name);
-           // button.onClick.AddListener(() => betPanel(button.name));
-        }
-
         cdpaneltranform = GameObject.FindWithTag("Timer").GetComponent<Transform>();
         Debug.Log(cdpaneltranform.gameObject.name);
         timerPanel =  Instantiate(countDownText,cdpaneltranform);
@@ -104,7 +86,7 @@ public class GameManager : MonoBehaviour
 
         StartCoroutine(GameLoop());
     }
-
+    
     public void getButtonList() {
         foreach (GameObject obj in uiConnector.GetButtonList(1)) {
             nobuttonList.Add(obj.GetComponent<Button>());
@@ -132,11 +114,6 @@ public class GameManager : MonoBehaviour
         countdown.text = string.Format("Time Remaining : {0:00}:{1:00}",minutes,seconds);
 
         
-    }
-
-    public void betPanel() {
-        Debug.Log("fshtsrhresh");
-        bettingPanel.SetActive(true);    
     }
     private void EndRound() {
         ColorPredictionGame.instance.EndRound();

@@ -9,6 +9,4 @@ public class UIConnector2 : MonoBehaviour
     public Button bigButton;
     [SerializeField]
     public Button smallButton;
-    
-    
 }

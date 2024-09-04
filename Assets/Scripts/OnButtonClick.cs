@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class OnButtonClick : MonoBehaviour
 {
-    void onbuttonclick() {
-        string buttonName = gameObject.name;
-        Debug.Log("Button clicked: " + buttonName);
+    public void betPanel(string betType) {
+
+        BettingPanel.instance.bettingpanelactive(betType);
+       
+        
     }
 }
