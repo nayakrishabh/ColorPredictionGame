@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ColorPredictionGame : MonoBehaviour {
+
+    [SerializeField] private GameObject historyBlock;
     private enum ColorType { GREEN, VIOLET, RED }
     private enum SizeType { SMALL, BIG }
 
-    private ColorType selectedColor;
-    private int selectedNumber;
-    private SizeType selectedSize;
+    private ColorType _selectedColor;
+    private int _selectedNumber;
+    private SizeType _selectedSize;
+    private Transform parentTransform; 
 
     public static ColorPredictionGame instance;
 
@@ -17,32 +20,54 @@ public class ColorPredictionGame : MonoBehaviour {
 
     // Placeholder for bets (using Dictionary for quick lookup)
     private Dictionary<string, float> bets = new Dictionary<string, float>();
+    private List<GameObject> listofhistory = new List<GameObject>();
+    private List<MixedData>  selecteditems = new List<MixedData>();
 
     private void Awake() {
         if (instance == null) {
             instance = this;
         }
     }
-
     private void Start() {
-        
+        if (parentTransform == null) {
+            parentTransform = HistorySystem.instance.getparentTransform();
+        }
     }
-
-
     public void StartNewRound() {
+        if (isRoundActive) {
+            Debug.LogWarning("Round is already active. Cannot start a new round.");
+            return;
+        }
+
         isRoundActive = true;
         Debug.Log("New round started. Place your bets!");
     }
 
     public void EndRound() {
+        if (!isRoundActive) {
+            Debug.LogWarning("No round active. Cannot end a round.");
+            return;
+        }
+
         isRoundActive = false;
-
+        Debug.Log("Round ended.");
         // Generate the random outcome
-        selectedColor = (ColorType)Random.Range(0, 3);
-        selectedNumber = Random.Range(0, 10);
-        selectedSize = (selectedNumber <= 4) ? SizeType.SMALL : SizeType.BIG;
+        _selectedColor = (ColorType)Random.Range(0, 3);
+        _selectedNumber = Random.Range(0, 10);
+        _selectedSize = (_selectedNumber <= 4) ? SizeType.SMALL : SizeType.BIG;
 
-        Debug.Log($"Round result: {selectedColor} - {selectedNumber} - {selectedSize}");
+        selecteditems.Add(new MixedData(_selectedColor.ToString(), _selectedNumber, _selectedSize.ToString()));
+
+
+        GameObject historyB = Instantiate(historyBlock, parentTransform);
+        Transform historyT = historyB.transform;
+        HistoryinfoBlockCOn historyIBC = historyT.GetComponent<HistoryinfoBlockCOn>();
+
+        historyT.SetAsFirstSibling();
+        historyIBC.SetValues(_selectedColor.ToString(), _selectedNumber,_selectedSize.ToString());
+        listofhistory.Add(historyB);
+
+        Debug.Log($"Round result: {_selectedColor} - {_selectedNumber} - {_selectedSize}");
 
         // Evaluate the bets placed
         EvaluateBets();
@@ -50,7 +75,6 @@ public class ColorPredictionGame : MonoBehaviour {
         // Clear bets after evaluation
         bets.Clear();
     }
-
     public void PlaceBet(string betType, float amount) {
         if (!isRoundActive) {
             Debug.LogWarning("Betting is closed. Please wait for the next round.");
@@ -64,7 +88,6 @@ public class ColorPredictionGame : MonoBehaviour {
         else {
             bets[betType] = amount;
         }
-
         Debug.Log($"Bet placed: {betType} with amount: {amount}");
     }
 
@@ -88,11 +111,11 @@ public class ColorPredictionGame : MonoBehaviour {
             case "GREEN":
             case "VIOLET":
             case "RED":
-                return selectedColor.ToString() == betKey;
+                return _selectedColor.ToString() == betKey;
 
             case "SMALL":
             case "BIG":
-                return selectedSize.ToString() == betKey;
+                return _selectedSize.ToString() == betKey;
 
             case "0":
             case "1":
@@ -104,10 +127,27 @@ public class ColorPredictionGame : MonoBehaviour {
             case "7":
             case "8":
             case "9":
-                return selectedNumber.ToString() == betKey;
+                return _selectedNumber.ToString() == betKey;
 
             default:
                 return false;
         }
+    }
+    public List<MixedData> getHistoryData() {
+        return selecteditems;
+    }
+    public bool getRoundActive() {
+        return isRoundActive;
+    }
+}
+public class MixedData {
+    public string selectedColor;
+    public int selectedNO;
+    public string SelectedSize;
+
+    public MixedData(string selectC, int selectN, string selectS) {
+        selectedColor = selectC;
+        selectedNO = selectN;
+        SelectedSize = selectS;
     }
 }

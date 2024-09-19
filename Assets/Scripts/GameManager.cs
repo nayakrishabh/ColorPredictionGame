@@ -37,9 +37,10 @@ public class GameManager : MonoBehaviour
     private GameObject timerPanel;
     private TextMeshProUGUI countdown;
 
+    private bool isGameLoopRunning = false;
     private float balance = 100000;
 
-    float remainingTime = 60f;
+    float remainingTime = 5f;
     //private List<GameObject> panelList;
     int panelcount = 2;
 
@@ -72,8 +73,6 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //nobuttonList = uiConnector.GetButtonList(1);
-        //colorbuttonlist = uiConnector.GetButtonList(2);
         if (BettingPanel.instance == null && bettingPanel != null) {
             BettingPanel.instance = bettingPanel;
         }
@@ -84,7 +83,7 @@ public class GameManager : MonoBehaviour
         timerPanel =  Instantiate(countDownText,cdpaneltranform);
         countdown = timerPanel.GetComponent<TextMeshProUGUI>();
 
-        StartCoroutine(GameLoop());
+        StartGameLoop();
     }
     
     public void getButtonList() {
@@ -92,11 +91,20 @@ public class GameManager : MonoBehaviour
             nobuttonList.Add(obj.GetComponent<Button>());
         }
     }
+    void StartGameLoop() {
+        if (!isGameLoopRunning) {
+            StartCoroutine(GameLoop());
+        }
+    }
+
     private IEnumerator GameLoop() {
+        if (isGameLoopRunning) yield break; // Prevent multiple loops from running
+        isGameLoopRunning = true;
+
         while (true) {
             ColorPredictionGame.instance.StartNewRound();
-            yield return new WaitForSeconds(remainingTime);
-            EndRound();
+            yield return new WaitForSeconds(remainingTime); // Ensure consistent timing
+            ColorPredictionGame.instance.EndRound();
         }
     }
     // Update is called once per frame
@@ -106,7 +114,7 @@ public class GameManager : MonoBehaviour
             remainingTime -= Time.deltaTime;
         }
         else if (remainingTime <= 0) {
-            remainingTime = 60f;
+            remainingTime = 5f;
         }
         
         int minutes = Mathf.FloorToInt(remainingTime / 60);
@@ -115,11 +123,6 @@ public class GameManager : MonoBehaviour
 
         
     }
-    private void EndRound() {
-        ColorPredictionGame.instance.EndRound();
-        ColorPredictionGame.instance.StartNewRound();
-    }
-
     public TimerType getTimerType() {
         return TimerType.MIN1;
     }
