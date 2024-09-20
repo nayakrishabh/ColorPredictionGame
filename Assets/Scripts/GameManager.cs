@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
     private bool isGameLoopRunning = false;
     private float balance = 100000;
 
-    float remainingTime = 5f;
+    private float remainingTime = 5f;
     //private List<GameObject> panelList;
     int panelcount = 2;
 
@@ -116,12 +116,9 @@ public class GameManager : MonoBehaviour
         else if (remainingTime <= 0) {
             remainingTime = 5f;
         }
-        
         int minutes = Mathf.FloorToInt(remainingTime / 60);
         int seconds = Mathf.FloorToInt(remainingTime % 60);
         countdown.text = string.Format("Time Remaining : {0:00}:{1:00}",minutes,seconds);
-
-        
     }
     public TimerType getTimerType() {
         return TimerType.MIN1;

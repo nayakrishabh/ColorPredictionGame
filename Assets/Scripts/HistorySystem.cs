@@ -7,7 +7,6 @@ public class HistorySystem : MonoBehaviour
 {
     public static HistorySystem instance;
     [SerializeField] private Transform parentTranfrom;
-    private List<GameObject> historyBs = new List<GameObject>();
     // Start is called before the first frame update
     void Start()
     {
@@ -21,12 +20,5 @@ public class HistorySystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (!ColorPredictionGame.instance.getRoundActive()) {
-        //    List<MixedData> listofhistorydata = cpg.getHistoryData();
-        //    GameObject historyB = Instantiate(historyBlock, parentTranfrom);
-        //    historyB.transform.SetAsFirstSibling();
-        //    historyB.GetComponent<HistoryinfoBlockCOn>().SetValues(cpg.getHistoryData)
-        //    historyBs.Add(historyB);
-        //}
     }
 }

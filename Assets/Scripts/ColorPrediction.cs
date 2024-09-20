@@ -23,6 +23,7 @@ public class ColorPredictionGame : MonoBehaviour {
     private List<GameObject> listofhistory = new List<GameObject>();
     private List<MixedData>  selecteditems = new List<MixedData>();
 
+    private int testCount = 0;
     private void Awake() {
         if (instance == null) {
             instance = this;
@@ -50,20 +51,13 @@ public class ColorPredictionGame : MonoBehaviour {
         }
 
         isRoundActive = false;
-        Debug.Log("Round ended.");
         // Generate the random outcome
-        _selectedColor = (ColorType)Random.Range(0, 3);
-        _selectedNumber = Random.Range(0, 10);
-        _selectedSize = (_selectedNumber <= 4) ? SizeType.SMALL : SizeType.BIG;
 
-        selecteditems.Add(new MixedData(_selectedColor.ToString(), _selectedNumber, _selectedSize.ToString()));
-
-
+        generateRandomOut();
         GameObject historyB = Instantiate(historyBlock, parentTransform);
-        Transform historyT = historyB.transform;
-        HistoryinfoBlockCOn historyIBC = historyT.GetComponent<HistoryinfoBlockCOn>();
+        HistoryinfoBlockCOn historyIBC = historyB.GetComponent<HistoryinfoBlockCOn>();
 
-        historyT.SetAsFirstSibling();
+        historyB.transform.SetAsFirstSibling();
         historyIBC.SetValues(_selectedColor.ToString(), _selectedNumber,_selectedSize.ToString());
         listofhistory.Add(historyB);
 
@@ -74,6 +68,12 @@ public class ColorPredictionGame : MonoBehaviour {
 
         // Clear bets after evaluation
         bets.Clear();
+    }
+    private void generateRandomOut() {
+        _selectedColor = (ColorType)Random.Range(0, 3);
+        _selectedNumber = Random.Range(0, 10);
+        _selectedSize = (_selectedNumber <= 4) ? SizeType.SMALL : SizeType.BIG;
+        Debug.Log("Generated");
     }
     public void PlaceBet(string betType, float amount) {
         if (!isRoundActive) {
