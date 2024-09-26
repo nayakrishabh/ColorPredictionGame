@@ -38,9 +38,9 @@ public class GameManager : MonoBehaviour
     private TextMeshProUGUI countdown;
 
     private bool isGameLoopRunning = false;
-    private float balance = 100000;
+    private float balance = 100000f;
 
-    private float remainingTime = 5f;
+    private float remainingTime = 60f;
     //private List<GameObject> panelList;
     int panelcount = 2;
 
@@ -64,8 +64,7 @@ public class GameManager : MonoBehaviour
             panelcount--;
         }
 
-        uiConnector = basePanel.GetComponent<UiConnector>();
-        uiConnector2 = secondPanel.GetComponent<UIConnector2>();
+        
         nobuttonList = new List<Button>();
         colorbuttonlist = new List<Button>();
         bigsmallbuttonlist = new List<Button>();
@@ -73,6 +72,9 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        uiConnector = basePanel.GetComponent<UiConnector>();
+        uiConnector2 = secondPanel.GetComponent<UIConnector2>();
+
         if (BettingPanel.instance == null && bettingPanel != null) {
             BettingPanel.instance = bettingPanel;
         }
@@ -114,11 +116,13 @@ public class GameManager : MonoBehaviour
             remainingTime -= Time.deltaTime;
         }
         else if (remainingTime <= 0) {
-            remainingTime = 5f;
+            remainingTime = 60f;
         }
+
         int minutes = Mathf.FloorToInt(remainingTime / 60);
         int seconds = Mathf.FloorToInt(remainingTime % 60);
         countdown.text = string.Format("Time Remaining : {0:00}:{1:00}",minutes,seconds);
+        uiConnector2.Balance.text = $"Balance : {getBalance()}";
     }
     public TimerType getTimerType() {
         return TimerType.MIN1;

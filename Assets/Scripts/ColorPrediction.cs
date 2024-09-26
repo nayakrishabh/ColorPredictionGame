@@ -23,7 +23,7 @@ public class ColorPredictionGame : MonoBehaviour {
     private List<GameObject> listofhistory = new List<GameObject>();
     private List<MixedData>  selecteditems = new List<MixedData>();
 
-    private int testCount = 0;
+    //private int testCount = 0;
     private void Awake() {
         if (instance == null) {
             instance = this;
