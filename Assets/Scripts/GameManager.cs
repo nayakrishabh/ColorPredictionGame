@@ -37,9 +37,10 @@ public class GameManager : MonoBehaviour
     private GameObject timerPanel;
     private TextMeshProUGUI countdown;
 
-    private float balance = 100000;
+    private bool isGameLoopRunning = false;
+    private float balance = 100000f;
 
-    float remainingTime = 60f;
+    private float remainingTime = 60f;
     //private List<GameObject> panelList;
     int panelcount = 2;
 
@@ -63,8 +64,7 @@ public class GameManager : MonoBehaviour
             panelcount--;
         }
 
-        uiConnector = basePanel.GetComponent<UiConnector>();
-        uiConnector2 = secondPanel.GetComponent<UIConnector2>();
+        
         nobuttonList = new List<Button>();
         colorbuttonlist = new List<Button>();
         bigsmallbuttonlist = new List<Button>();
@@ -72,8 +72,9 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //nobuttonList = uiConnector.GetButtonList(1);
-        //colorbuttonlist = uiConnector.GetButtonList(2);
+        uiConnector = basePanel.GetComponent<UiConnector>();
+        uiConnector2 = secondPanel.GetComponent<UIConnector2>();
+
         if (BettingPanel.instance == null && bettingPanel != null) {
             BettingPanel.instance = bettingPanel;
         }
@@ -84,7 +85,7 @@ public class GameManager : MonoBehaviour
         timerPanel =  Instantiate(countDownText,cdpaneltranform);
         countdown = timerPanel.GetComponent<TextMeshProUGUI>();
 
-        StartCoroutine(GameLoop());
+        StartGameLoop();
     }
     
     public void getButtonList() {
@@ -92,11 +93,20 @@ public class GameManager : MonoBehaviour
             nobuttonList.Add(obj.GetComponent<Button>());
         }
     }
+    void StartGameLoop() {
+        if (!isGameLoopRunning) {
+            StartCoroutine(GameLoop());
+        }
+    }
+
     private IEnumerator GameLoop() {
+        if (isGameLoopRunning) yield break; // Prevent multiple loops from running
+        isGameLoopRunning = true;
+
         while (true) {
             ColorPredictionGame.instance.StartNewRound();
-            yield return new WaitForSeconds(remainingTime);
-            EndRound();
+            yield return new WaitForSeconds(remainingTime); // Ensure consistent timing
+            ColorPredictionGame.instance.EndRound();
         }
     }
     // Update is called once per frame
@@ -108,18 +118,12 @@ public class GameManager : MonoBehaviour
         else if (remainingTime <= 0) {
             remainingTime = 60f;
         }
-        
+
         int minutes = Mathf.FloorToInt(remainingTime / 60);
         int seconds = Mathf.FloorToInt(remainingTime % 60);
         countdown.text = string.Format("Time Remaining : {0:00}:{1:00}",minutes,seconds);
-
-        
+        uiConnector2.Balance.text = $"Balance : {getBalance()}";
     }
-    private void EndRound() {
-        ColorPredictionGame.instance.EndRound();
-        ColorPredictionGame.instance.StartNewRound();
-    }
-
     public TimerType getTimerType() {
         return TimerType.MIN1;
     }
