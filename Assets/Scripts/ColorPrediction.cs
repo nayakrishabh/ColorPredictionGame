@@ -35,25 +35,16 @@ public class ColorPredictionGame : MonoBehaviour {
         }
     }
     public void StartNewRound() {
-        if (isRoundActive) {
-            Debug.LogWarning("Round is already active. Cannot start a new round.");
-            return;
-        }
-
         isRoundActive = true;
         Debug.Log("New round started. Place your bets!");
     }
 
     public void EndRound() {
-        if (!isRoundActive) {
-            Debug.LogWarning("No round active. Cannot end a round.");
-            return;
-        }
-
         isRoundActive = false;
         // Generate the random outcome
 
         generateRandomOut();
+
         GameObject historyB = Instantiate(historyBlock, parentTransform);
         HistoryinfoBlockCOn historyIBC = historyB.GetComponent<HistoryinfoBlockCOn>();
 
@@ -73,7 +64,7 @@ public class ColorPredictionGame : MonoBehaviour {
         _selectedColor = (ColorType)Random.Range(0, 3);
         _selectedNumber = Random.Range(0, 10);
         _selectedSize = (_selectedNumber <= 4) ? SizeType.SMALL : SizeType.BIG;
-        Debug.Log("Generated");
+        Debug.LogError("Generated");
     }
     public void PlaceBet(string betType, float amount) {
         if (!isRoundActive) {
