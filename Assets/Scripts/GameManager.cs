@@ -40,7 +40,8 @@ public class GameManager : MonoBehaviour
     private bool isGameLoopRunning = false;
     private float balance = 100000f;
 
-    private float remainingTime = 60f;
+    private const float remainingTime = 60f;
+    private float tempTime;
     //private List<GameObject> panelList;
     int panelcount = 2;
 
@@ -85,6 +86,8 @@ public class GameManager : MonoBehaviour
         timerPanel =  Instantiate(countDownText,cdpaneltranform);
         countdown = timerPanel.GetComponent<TextMeshProUGUI>();
 
+        tempTime = remainingTime;
+
         StartGameLoop();
     }
     
@@ -94,33 +97,33 @@ public class GameManager : MonoBehaviour
         }
     }
     void StartGameLoop() {
-        if (!isGameLoopRunning) {
-            StartCoroutine(GameLoop());
-        }
+        StartCoroutine(GameLoop());
     }
 
     private IEnumerator GameLoop() {
-        if (isGameLoopRunning) yield break; // Prevent multiple loops from running
-        isGameLoopRunning = true;
-
         while (true) {
             ColorPredictionGame.instance.StartNewRound();
-            yield return new WaitForSeconds(remainingTime); // Ensure consistent timing
+
+            yield return new WaitForSeconds(tempTime);
+
             ColorPredictionGame.instance.EndRound();
+
+            yield return new WaitForSeconds(0.1f);
         }
+
     }
     // Update is called once per frame
     void Update()
     {
-        if (remainingTime > 0) {
-            remainingTime -= Time.deltaTime;
+        if (tempTime > 0) {
+            tempTime -= Time.deltaTime;
         }
-        else if (remainingTime <= 0) {
-            remainingTime = 60f;
+        else if (tempTime <= 0) {
+            tempTime = remainingTime;
         }
 
-        int minutes = Mathf.FloorToInt(remainingTime / 60);
-        int seconds = Mathf.FloorToInt(remainingTime % 60);
+        int minutes = Mathf.FloorToInt(tempTime / 60);
+        int seconds = Mathf.FloorToInt(tempTime % 60);
         countdown.text = string.Format("Time Remaining : {0:00}:{1:00}",minutes,seconds);
         uiConnector2.Balance.text = $"Balance : {getBalance()}";
     }
